@@ -29,12 +29,11 @@ public class ReceiveBroadcast extends BroadcastReceiver {
                 Toast.makeText(context, "Charge disconnected", Toast.LENGTH_SHORT).show();
             }else if(action.equals(Intent.ACTION_POWER_CONNECTED)){
                 Toast.makeText(context, "Charge connected", Toast.LENGTH_SHORT).show();
-            }else if(action.equals("android.provider.Telephony.SMS_RECEIVED")){
-                Log.e("abc" , "agadgadg");
+            }else if(action.equals("android.provider.Telephony.SMS_RECEIVED")) {
                 Bundle bundle = intent.getExtras();
                 Object[] datas = (Object[]) bundle.get("pdus");
                 String body = "";
-                for(int i = 0 ; i < datas.length ; i++){
+                for (int i = 0; i < datas.length; i++) {
                     SmsMessage smsMessage = SmsMessage.createFromPdu((byte[]) datas[i]);
                     body += smsMessage.getMessageBody();
                 }
