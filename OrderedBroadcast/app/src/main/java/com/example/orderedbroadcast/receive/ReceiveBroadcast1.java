@@ -9,7 +9,13 @@ import android.widget.Toast;
 public class ReceiveBroadcast1 extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.e("abc" , "1 ");
-        Toast.makeText(context, "1", Toast.LENGTH_SHORT).show();
+        String action = intent.getAction();
+        if(action != null){
+            if(action.equals("com.example.orderedbroadcast")){
+                Log.e("abc" , "got string 1");
+                String s = intent.getStringExtra("name");
+                Toast.makeText(context, s + "1", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

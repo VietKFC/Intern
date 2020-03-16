@@ -74,12 +74,4 @@
         android:layout_marginTop="30dp"
         android:text="Send broadcast"
         android:id="@+id/sendBtn"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/sendBtn"
-        app:layout_constraintLeft_toLeftOf="@id/sendBtn"
-        android:layout_marginTop="30dp"
-        android:text="SEND ORDEREDBROADCAST"
-        android:id="@+id/sendOrdBtn"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
