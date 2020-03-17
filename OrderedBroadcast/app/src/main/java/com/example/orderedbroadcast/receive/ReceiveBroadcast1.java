@@ -15,6 +15,8 @@ public class ReceiveBroadcast1 extends BroadcastReceiver {
                 Log.e("abc" , "got string 1");
                 String s = intent.getStringExtra("name");
                 Toast.makeText(context, s + "1", Toast.LENGTH_SHORT).show();
+            }else if ( action.equals("com.example.finaltestdemo.createBroadcast")){
+                Toast.makeText(context, "Received from another app", Toast.LENGTH_SHORT).show();
             }
         }
     }

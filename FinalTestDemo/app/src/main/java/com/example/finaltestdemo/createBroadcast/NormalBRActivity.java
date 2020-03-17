@@ -1,6 +1,7 @@
 package com.example.finaltestdemo.createBroadcast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -34,7 +35,6 @@ public class NormalBRActivity extends AppCompatActivity {
         intentFilter.addAction("android.intent.action.ACTION_POWER_DISCONNECTED");
         intentFilter.addAction("android.intent.action.ACTION_BOOT_COMPLETED");
         intentFilter.addAction("android.provider.Telephony.SMS_RECEIVED");
-        //intentFilter2.addDataScheme("file");
         apSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -68,6 +68,7 @@ public class NormalBRActivity extends AppCompatActivity {
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //LocalBroadcastManager.getInstance(getApplicationContext()).
                 IntentFilter intentFilters = new IntentFilter();
                 intentFilters.addAction("com.example.finaltestdemo.createBroadcast");
                 registerReceiver(new ReceiveSentBroadcast.ReceiveCustomBroadcast(), intentFilters);

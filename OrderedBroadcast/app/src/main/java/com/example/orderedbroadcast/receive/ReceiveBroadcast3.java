@@ -14,8 +14,6 @@ public class ReceiveBroadcast3 extends BroadcastReceiver {
             if(action.equals("com.example.orderedbroadcast")){
                 String s = intent.getStringExtra("name");
                 Toast.makeText(context, s + "3", Toast.LENGTH_SHORT).show();
-            }else if (action.equals("android.intent.action.AIRPLANE_MODE")){
-                Log.e("receive" , "Local broadcastreceive");
             }
         }
     }

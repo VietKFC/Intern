@@ -20,7 +20,6 @@ public class ReceiveBroadcast extends BroadcastReceiver {
             String action = intent.getAction();
         if(action != null){
             if(action.equals(Intent.ACTION_AIRPLANE_MODE_CHANGED)){
-                Log.e("abcd" , "received");
                 if(isAirplaneOn(context) == true){
                     Toast.makeText(context, "Airplane mode is on", Toast.LENGTH_SHORT).show();
                 }else{
