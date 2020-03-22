@@ -8,4 +8,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
+    <style name="FragmentTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/hard_grey</item>
+        <item name="colorPrimaryDark">@color/hard_grey</item>
+
+    </style>
+
 </resources>

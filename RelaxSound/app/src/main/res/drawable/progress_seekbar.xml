@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width = "match_parent"
+    android:layout_height = "match_parent">
+
+    <item>
+        <shape android:shape="rectangle" >
+            <gradient
+                android:endColor="@color/hard_grey"
+                android:startColor="@color/hard_grey" />
+        </shape>
+    </item>
+    <item>
+        <clip>
+            <shape android:shape="rectangle" >
+
+                <gradient
+                    android:endColor="@color/black"
+                    android:startColor="@color/black" />
+            </shape>
+        </clip>
+    </item>
+</layer-list>

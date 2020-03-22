@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.relaxsound.R;
+import com.example.relaxsound.fragment.RainFragment;
 import com.example.relaxsound.model.RainIcon;
 
 import java.util.ArrayList;
@@ -21,10 +22,10 @@ import java.util.ArrayList;
 public class RainAdapter extends RecyclerView.Adapter<RainAdapter.ViewHolder> {
     ArrayList<RainIcon> rainIcons;
     Context context;
-    private MediaPlayer mediaPlayer = null;
+    public static MediaPlayer mediaPlayer = null;
     private AudioManager audioManager = null;
     private SeekBar seekBar = null;
-    private static boolean click = false;
+    public boolean click = false;
     public RainAdapter(ArrayList<RainIcon> rainIcons, Context context) {
         this.rainIcons = rainIcons;
         this.context = context;
@@ -52,43 +53,42 @@ public class RainAdapter extends RecyclerView.Adapter<RainAdapter.ViewHolder> {
         final RainIcon rainIcon = rainIcons.get(position);
         if(rainIcon != null) {
             holder.imageView.setImageResource(rainIcon.getId());
-//            if(getIndex() == position){
-//                if(mediaPlayer != null) {
-//                    click = true;
-//                    mediaPlayer.start();
-//                }
-//            }else{
-//                click = false;
-//                mediaPlayer.stop();
-//                mediaPlayer = null;
-//            }
+            if(getIndex() == position){
+                holder.seekBar.setVisibility(View.VISIBLE);
+                initVolume();
+            }else{
+                holder.seekBar.setVisibility(View.INVISIBLE);
+            }
             holder.imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(mediaPlayer == null){
-                        mediaPlayer = MediaPlayer.create(context, rainIcon.getMp3Uri());
-                    }
-//                    if(getIndex() == -1){
-//                        setIndex(position);
-//                    }else{
-//                        if(getIndex() == position){
-//                            setIndex(-1);
-//                        }else{
-//                            setIndex(position);
-//                        }
-//                    }
-                    if(holder.seekBar.getVisibility() == View.VISIBLE){
-                        holder.seekBar.setVisibility(View.INVISIBLE);
-                    }
-                    if(mediaPlayer.isPlaying()){
-                        mediaPlayer.stop();
-                        holder.seekBar.setVisibility(View.INVISIBLE);
-                        mediaPlayer = null;
-                    }
-                    if(mediaPlayer !=null) {
-                        mediaPlayer.start();
-                        holder.seekBar.setVisibility(View.VISIBLE);
-                        initVolume();
+                    if (rainIcon.getMp3Uri() != 0) {
+                        if (mediaPlayer == null) {
+                            mediaPlayer = MediaPlayer.create(context, rainIcon.getMp3Uri());
+                        }
+                        if (getIndex() == -1) {
+                            setIndex(position);
+                        } else {
+                            if (getIndex() == position) {
+                                setIndex(-1);
+                            } else {
+                                setIndex(-1);
+
+                            }
+                        }
+                        if (mediaPlayer.isPlaying() || mediaPlayer.getCurrentPosition() > 1) {
+                            RainFragment.cardView.setVisibility(View.INVISIBLE);
+                            mediaPlayer.stop();
+                            mediaPlayer = null;
+                        }
+                        if (mediaPlayer != null) {
+                            mediaPlayer.start();
+                            mediaPlayer.setLooping(true);
+                            RainFragment.cardView.setVisibility(View.VISIBLE);
+                            RainFragment.pauseImg.setImageResource(R.drawable.ic_pause);
+                            RainFragment.ispause = false;
+                            initVolume();
+                        }
                     }
                 }
             });
