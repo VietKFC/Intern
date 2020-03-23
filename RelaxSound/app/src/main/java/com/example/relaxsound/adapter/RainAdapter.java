@@ -4,6 +4,7 @@ import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.TimedText;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.relaxsound.R;
 import com.example.relaxsound.fragment.RainFragment;
 import com.example.relaxsound.model.RainIcon;
+import com.example.relaxsound.receiver.TimeReceive;
 
+import java.sql.Time;
 import java.util.ArrayList;
 
 public class RainAdapter extends RecyclerView.Adapter<RainAdapter.ViewHolder> {
@@ -29,6 +32,9 @@ public class RainAdapter extends RecyclerView.Adapter<RainAdapter.ViewHolder> {
     public RainAdapter(ArrayList<RainIcon> rainIcons, Context context) {
         this.rainIcons = rainIcons;
         this.context = context;
+    }
+
+    public RainAdapter() {
     }
 
     @NonNull
@@ -94,6 +100,13 @@ public class RainAdapter extends RecyclerView.Adapter<RainAdapter.ViewHolder> {
             });
         }
     }
+    private void setVolumeOption(Context context , int volume){
+        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        audioManager.setSpeakerphoneOn(true);
+        assert audioManager != null;
+        audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
+        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, 0);
+    }
     private void initVolume(){
         try{
             audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
@@ -103,12 +116,12 @@ public class RainAdapter extends RecyclerView.Adapter<RainAdapter.ViewHolder> {
             seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC , progress , 0);
+                    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC,
+                            progress, 0);
                 }
 
                 @Override
                 public void onStartTrackingTouch(SeekBar seekBar) {
-
                 }
 
                 @Override
@@ -128,7 +141,7 @@ public class RainAdapter extends RecyclerView.Adapter<RainAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
-        SeekBar seekBar;
+        public SeekBar seekBar;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.icon_row);
